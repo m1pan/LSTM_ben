@@ -11,7 +11,7 @@ test_battery_indices = [2, 9, 16];  % Example: test on batteries 2, 9, 16
 % Or for leave-one-out on all: test_battery_indices = 1:16;
 
 % Target features to use
-target_Feature = [1:13];
+target_Feature = [1:7, 12:21];
 desired_features = target_Feature;
 
 % Hyperparameters
@@ -293,3 +293,5 @@ ylabel('MAPE (%)');
 title('MAPE Distribution by Battery');
 
 sgtitle('Generalised Model Benchmark Results (No Biasing)');
+
+%%
