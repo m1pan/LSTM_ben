@@ -56,12 +56,12 @@ for j = 1:1:num_batteries
     % rather than spline as there's a risk with spline that you add
     % information
     
-    Cap = interp1(RPT_x, B.data(:, 5), Points_x, "spline", "extrap");
-    PE_Cap =  interp1(RPT_x, B.data(:, 9), Points_x, "spline", "extrap");
-    NE_Cap =  interp1(RPT_x, B.data(:, 10), Points_x, "spline", "extrap");
-    LAM  =  interp1(RPT_x, B.data(:, 15), Points_x, "spline", "extrap");
-    LLI = interp1(RPT_x, B.data(:, 19), Points_x, "spline", "extrap"); 
-    Electrode_offset = interp1(RPT_x, B.data(:, 13), Points_x, "spline", "extrap");
+    Cap = interp1(RPT_x, B.data(:, 5), Points_x, "linear", "extrap");
+    PE_Cap =  interp1(RPT_x, B.data(:, 9), Points_x, "linear", "extrap");
+    NE_Cap =  interp1(RPT_x, B.data(:, 10), Points_x, "linear", "extrap");
+    LAM  =  interp1(RPT_x, B.data(:, 15), Points_x, "linear", "extrap");
+    LLI = interp1(RPT_x, B.data(:, 19), Points_x, "linear", "extrap"); 
+    Electrode_offset = interp1(RPT_x, B.data(:, 13), Points_x, "linear", "extrap");
 
     % The function `extract_RPT_features' actually just finds the gradient
     % of a signal with respect to another signal, and requires you to give

@@ -42,7 +42,7 @@ for W = 1:1:1
         
         % Target feature allows selecting which features you want to use
         % from raw data. See that file for details.
-        target_Feature = [1:13]%[1:7, 12:21];%[1:2, 7:15];%[1, 2, 4, 10:12];
+        target_Feature = [1:7, 12:21];%[1:2, 7:15];%[1, 2, 4, 10:12];%[1:13]
         desired_features = target_Feature;
 
         % Hyperparameter for sliding window size
@@ -54,20 +54,20 @@ for W = 1:1:1
         % Different forecasting start points.
         LKP_array = [7, 10, 13, 16, 19];
         % Amount of total data used to train each ensemble
-        ensemble_data_share = 0.6;
+        ensemble_data_share = 0.4;%0.6;
         % Ensemble size
-        numSamples = 7;
+        numSamples = 10;%7;
 
         % Hyperparams of the neural net, cell numbers effect network
         % memory, Drop out layers prevent overfitting. Epochs are the
         % amount of times the network is trained on all of its dataa
         gru1_cell_num = 224;
-        DOL1 = 0.05;
+        DOL1 = 0.1;%0.05;
         lstm_cell_num = 200;
-        DOL2 = 0.05;
-        gru2_cell_num = 200;
-        DOL3 = 0.05;
-        epochs = 700;
+        DOL2 = 0.1;%0.05;
+        gru2_cell_num = 192;%200;
+        DOL3 = 0.1;%0.05;
+        epochs = 900;%700;
 
 
         % ------ CHANGING THINGS FROM HERE WILL EFFECT THE CODE --------
@@ -88,11 +88,11 @@ for W = 1:1:1
         % came from the testing data)
         % I'm also deleting the first data set as its a massive outlier,
         % this isn't actually strictly necessary.
-        % Train_data(k+16) = [];
+        Train_data(k+16) = [];
         % Train_data(1+16) = [];
-        Train_data(k+4) = [];
-        % Train_data(k) = [];
-        % Train_data(1) = [];
+        % Train_data(k+4) = [];
+        Train_data(k) = [];
+        Train_data(1) = [];
 
         num_batteries = length(Train_data(:));
 
@@ -222,8 +222,8 @@ for W = 1:1:1
                 dropoutLayer(DOL1)
                 lstmLayer(lstm_cell_num)%, 'OutputMode', 'sequence')
                 dropoutLayer(DOL2)
-                lstmLayer(lstm_cell_num)%, 'OutputMode', 'sequence')
-                dropoutLayer(DOL2)
+                % lstmLayer(lstm_cell_num)%, 'OutputMode', 'sequence')
+                % dropoutLayer(DOL2)
                 gruLayer(gru2_cell_num)%, 'OutputMode', 'sequence')
                 dropoutLayer(DOL3)
                 fullyConnectedLayer(numChannels)];
@@ -365,7 +365,8 @@ for W = 1:1:1
 
 
             gd1(k, p) = max(xcorr(GT_norm, Pred_norm, 'normalized'));
-            gd2(k, p) = mean_absolute_percentage_error((GT_Trace(LKP:end, 1)-mu(1))./sigma(1), (meanPrediction(LKP:end, 1)-mu(1))./sigma(1));
+            % gd2(k, p) = mean_absolute_percentage_error((GT_Trace(LKP:end, 1)-mu(1))./sigma(1), (meanPrediction(LKP:end, 1)-mu(1))./sigma(1));
+            gd2(k, p) = mean_absolute_percentage_error(GT_Trace(LKP:end, 1), meanPrediction(LKP:end, 1));
             gd3(k, p) = calculate_r_squared(GT_Trace(LKP:end, 1), meanPrediction(LKP:end, 1));
             k
 %%
@@ -382,6 +383,7 @@ for W = 1:1:1
 
 end
 
+%% 
 
 % This is the monotonic prediction function.
 function monotonicPredictions = enforceMonotonicDecrease(predictions)

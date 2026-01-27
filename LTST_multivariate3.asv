@@ -36,13 +36,13 @@ for W = 1:1:1
 
 
     % For looping through or selecting a battery
-    for k = [1:4]%[2, 9, 16] %12:12%:2:14%[2, 4, 9, 11]%length(raw_data(:))/2
+    for k = [2]%[2, 9, 16] %12:12%:2:14%[2, 4, 9, 11]%length(raw_data(:))/2
 
         % ------ THESE ARE VARIABLE PARAMETERS ---------
         
         % Target feature allows selecting which features you want to use
         % from raw data. See that file for details.
-        target_Feature = [1:13]%[1:7, 12:21];%[1:2, 7:15];%[1, 2, 4, 10:12];
+        target_Feature = [1:7, 12:21];%[1:2, 7:15];%[1, 2, 4, 10:12];%[1:13]
         desired_features = target_Feature;
 
         % Hyperparameter for sliding window size
@@ -54,19 +54,19 @@ for W = 1:1:1
         % Different forecasting start points.
         LKP_array = [7, 10, 13, 16, 19];
         % Amount of total data used to train each ensemble
-        ensemble_data_share = 0.6;
+        ensemble_data_share = 0.4;%0.6;
         % Ensemble size
-        numSamples = 7;
+        numSamples = 10;%7;
 
         % Hyperparams of the neural net, cell numbers effect network
         % memory, Drop out layers prevent overfitting. Epochs are the
         % amount of times the network is trained on all of its dataa
         gru1_cell_num = 224;
-        DOL1 = 0.05;
+        DOL1 = 0.1;%0.05;
         lstm_cell_num = 200;
-        DOL2 = 0.05;
-        gru2_cell_num = 200;
-        DOL3 = 0.05;
+        DOL2 = 0.1;%0.05;
+        gru2_cell_num = 192;%200;
+        DOL3 = 0.1;%0.05;
         epochs = 700;
 
 
@@ -90,7 +90,7 @@ for W = 1:1:1
         % this isn't actually strictly necessary.
         % Train_data(k+16) = [];
         % Train_data(1+16) = [];
-        %
+        Train_data(k+4) = [];
         % Train_data(k) = [];
         % Train_data(1) = [];
 
