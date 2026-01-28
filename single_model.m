@@ -7,10 +7,10 @@ close all;
 
 % ====== CONFIGURATION ======
 % Select which batteries to hold out for testing
-test_battery_indices = [2, 9, 16];  % Example: test on batteries 2, 9, 16
+test_battery_indices = [3,8,11,16];%[2, 9, 16];  % Example: test on batteries 2, 9, 16
 
 % Target features to use
-target_Feature = [1:13];
+target_Feature = [1:7, 12:21];
 desired_features = target_Feature;
 
 % Hyperparameters
