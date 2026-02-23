@@ -7,7 +7,7 @@ close all;
 
 % ====== CONFIGURATION ======
 % Select which batteries to hold out for testing
-test_battery_indices = [3];%[3,8,11,16];%[2, 9, 16];  % Example: test on batteries 2, 9, 16
+test_battery_indices = [5,8,11,13,16];%[3,8,11,16];%[2, 9, 16];  % Example: test on batteries 2, 9, 16
 
 % Target features to use
 target_Feature = [1:7, 12:21];
@@ -47,12 +47,14 @@ end
 
 % remove first battery
 Train_data(1) = [];
+Train_data(2) = [];
+Train_data(3) = [];
 
 num_train_batteries = length(Train_data);
 fprintf('Training on %d batteries (including bootstrapped copies)\n', num_train_batteries);
 
 % ====== NORMALISATION ======
-num_features = length(Train_data(1).Features(1, desired_features));
+num_features = length(Train_data(4).Features(4, desired_features));
 Tot_Feature_Lists = [];
 
 for b = 1:num_train_batteries

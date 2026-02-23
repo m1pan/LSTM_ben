@@ -36,7 +36,7 @@ for W = 1:1:1
 
 
     % For looping through or selecting a battery
-    for k = [2]%[2, 9, 16] %12:12%:2:14%[2, 4, 9, 11]%length(raw_data(:))/2
+    for k = [5,8,11,13,16]%[2, 9, 16] %12:12%:2:14%[2, 4, 9, 11]%length(raw_data(:))/2
 
         % ------ THESE ARE VARIABLE PARAMETERS ---------
         
@@ -93,6 +93,8 @@ for W = 1:1:1
         % Train_data(k+4) = [];
         Train_data(k) = [];
         Train_data(1) = [];
+        Train_data(2) = [];
+        Train_data(3) = [];
 
         num_batteries = length(Train_data(:));
 
